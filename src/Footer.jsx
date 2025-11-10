@@ -3,22 +3,22 @@ import React from 'react';
 export default function Footer() {
   return (
     <>
-      <footer className="text-white flex flex-row justify-between bg-black p-0 m-0 mt-auto">
+      <footer className="text-white flex flex-row justify-between bg-red-600 p-0 m-0 mt-auto">
         <div className="flex flex-row">
           <a
             href="https://www.instagram.com/x_ggym?igsh=MWEwdjV0eXk0MnBseQ=="
             className="text-white p-2 lg:p-4"
           >
-            <i className="p-1 fa-brands fa-instagram text-2xl text-red-500 mt-1"></i>
+            <i className="p-1 fa-brands fa-instagram text-2xl text-white mt-1"></i>
           </a>
           <a href="https://wa.link/zyhpxd" className="text-white p-2 lg:p-4">
-            <i className="p-1 fa-brands fa-whatsapp text-2xl text-red-500 mt-1"></i>
+            <i className="p-1 fa-brands fa-whatsapp text-2xl text-white mt-1"></i>
           </a>
           <a href="https://www.facebook.com/TOWN411" className="text-white p-2 lg:p-4">
-            <i className="p-1 fa-brands fa-facebook text-2xl text-red-500 mt-1"></i>
+            <i className="p-1 fa-brands fa-facebook text-2xl text-white mt-1"></i>
           </a>
           <a href="https://maps.app.goo.gl/goVtwSXvxrkmpzzPA" className="text-white p-2 lg:p-4">
-            <i className="fa-solid fa-location-dot text-2xl text-red-500 mt-1 p-1"></i>
+            <i className="fa-solid fa-location-dot text-2xl text-white mt-1 p-1"></i>
           </a>
         </div>
         <div>
@@ -26,9 +26,9 @@ export default function Footer() {
         </div>
       </footer>
 
-      <p className="text-center bg-black">
+      <p className="text-center bg-red-600">
         Direct by{" "}
-        <a href="https://tamyaz.online/" className="text-red-600">
+        <a href="https://tamyaz.online/" className="text-white">
           Tamyaz
         </a>
       </p>

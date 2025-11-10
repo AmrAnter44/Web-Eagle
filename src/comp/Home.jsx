@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
-import { dataService } from '../data/dataService';
+import { dataService } from '../../public/data/dataService';
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
@@ -42,7 +42,7 @@ export default function Home() {
     <>
       <Nav2 />
 
-      <div className="mt-20">
+      <div>
         {/* ==================== Personal Training Section ==================== */}
         {/* <div className='w-full py-9 bg-gray-900'>
           <div className="max-w-7xl mx-auto px-4">
@@ -139,7 +139,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-10">
               <h2 className='text-3xl md:text-4xl text-white font-bold gymfont'>
-                <i className="fa-solid fa-fire pr-2"></i>
+
                 Membership Offers
               </h2>
             </div>
@@ -215,10 +215,10 @@ export default function Home() {
         </div>
 
         {/* ==================== Marquee Section ==================== */}
-        <div className="marquee bg-white">
-          <p className="ml-11 text-red-600">
+        <div className="marquee bg-red-600">
+          <p className="ml-11 text-white font-bold">
             <span># INHALE PASSION</span> &nbsp; &nbsp;
-            <span># INHALE PASSION</span> &nbsp; &nbsp;
+            <span ># INHALE PASSION</span> &nbsp; &nbsp;
             <span># INHALE PASSION</span> &nbsp; &nbsp;
             <span># INHALE PASSION</span> &nbsp; &nbsp;
           </p>

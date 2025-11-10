@@ -71,14 +71,14 @@ export default function Nav() {
   return (
     <>
       <motion.div 
-        className="fixed top-0 left-0 w-full z-50"
+        className="fixed top-0 left-0 w-full z-50 bg-red-600 p-5"
         initial="hidden"
         animate="visible"
         variants={navVariants}
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white lg:m-2 mb-5">
+        <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white ">
           
-          <div className="lg:ml-4 flex justify-between w-full lg:w-auto px-4 lg:px-0">
+          <div className="lg:ml-4 flex justify-between w-full ">
             <Link to={"/"}>
               <motion.img 
                 src="/assets/bigLogo.png" 
@@ -92,14 +92,6 @@ export default function Nav() {
             </Link>
 
             <div className="flex items-center lg:hidden">
-              <Link to={"/shop"}>
-                <motion.i 
-                  className="fa-solid fa-cart-shopping text-2xl mr-4 mb-2 mt-3"
-                  variants={cartIconVariants}
-                  initial="rest"
-                  whileHover="hover"
-                />
-              </Link>
 
               <motion.button
                 className="text-white text-3xl"
@@ -116,7 +108,7 @@ export default function Nav() {
 
           {/* استخدام الكود الأصلي بدون تعديل للـ desktop */}
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in-out flex-col lg:flex lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
+            className={`overflow-hidden transition-all duration-600 ease-in-out flex-col lg:flex lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
               open
                 ? "max-h-96 opacity-100 mt-4"
                 : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100"
@@ -124,7 +116,7 @@ export default function Nav() {
           >
             <Link
               to="/"
-              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-600 px-2 py-2 m-1 hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span
@@ -138,7 +130,7 @@ export default function Nav() {
 
             <Link
               to="/classes"
-              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-600 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span
@@ -152,7 +144,7 @@ export default function Nav() {
 
             <Link
               to="/map"
-              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-600 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span

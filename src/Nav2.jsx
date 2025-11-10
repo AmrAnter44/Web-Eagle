@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function PageWithVideo() {
   const [open, setOpen] = useState(false);
-      const words = ["INHALE PASSION", "X-GYM"];
+      const words = ["INHALE PASSION", "Eagle Gym"];
     const [text, setText] = useState("");
     const [wordIndex, setWordIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -50,7 +50,7 @@ export default function PageWithVideo() {
 
         {/* Content above video */}
         <div className="relative z-20 w-full h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-              <p className="mt-40 text-3xl lg:text-6xl gymfont  font-bold">
+              <p className=" text-3xl lg:text-6xl gymfont  font-bold text-red-600">
       {text}
       <span className="border-r-2 border-white ml-1 animate-pulse"></span>
     </p>

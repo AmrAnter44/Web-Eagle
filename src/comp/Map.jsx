@@ -151,11 +151,7 @@ function Map() {
               {/* Overlay للتفاعل البصري */}
               <motion.div
                 className="w-full h-full rounded-lg border-2 border-transparent"
-                whileHover={{
-                  borderColor: "rgba(59, 130, 246, 0.8)",
-                  backgroundColor: "rgba(59, 130, 246, 0.2)",
-                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
-                }}
+
                 transition={{ duration: 0.3 }}
               />
             </Link>
@@ -198,7 +194,7 @@ function Map() {
               ease: "easeInOut"
             }}
           >
-            <div className="w-full h-full bg-red-400 rounded-lg" />
+            <div className="w-full h-full bg-red-600 rounded-lg" />
           </motion.div>
         ))}
       </motion.div>

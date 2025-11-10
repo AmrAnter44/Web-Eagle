@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Trans from '../comp/Trans';
-import { dataService } from '../data/dataService';
+import { dataService } from '../../public/data/dataService';
 import { Link } from 'react-router-dom';
 
 export default function Coaches() {
@@ -33,8 +33,8 @@ export default function Coaches() {
           {/* قسم الكوتشيز */}
           <div className="w-full lg:w-1/2">
             <div className="text-center mb-6">
-              <h2 className="text-xl md:text-2xl font-bold text-white gymfont mb-2">
-                Our <span className="text-red-400">Coaches</span>
+              <h2 className="text-xl md:text-2xl font-bold text-red-600 gymfont mb-2">
+                Our Coaches
               </h2>
               <div className="w-16 h-1 bg-red-500 mx-auto rounded-full"></div>
             </div>
@@ -45,7 +45,7 @@ export default function Coaches() {
                 {coaches.length === 0 ? (
                   
                   <div className="text-center py-8">
-                    <i className="text-3xl text-red-700 fa-solid fa-spinner fa-spin" />
+                    <i className="text-3xl text-red-600 fa-solid fa-spinner fa-spin" />
                   </div>
                 ) :  (<a  href={coaches[current].link} target="_blank" rel="noopener noreferrer">
                   <div className="bg-black rounded-xl p-4 text-center">
@@ -53,7 +53,7 @@ export default function Coaches() {
                       <h3 className="text-lg md:text-xl font-bold text-white gymfont mb-1">
                         {coaches[current].name}
                       </h3>
-                      <p className="text-red-400 text-sm md:text-base font-semibold">
+                      <p className="text-red-600 text-sm md:text-base font-semibold">
                         {coaches[current].title}
                       </p>
                     </div>
@@ -69,7 +69,13 @@ export default function Coaches() {
                     </div>  
 
                     {/* Dots للتنقل */}
-                    <div className="flex justify-center gap-2 mt-4">
+
+                  </div>
+                  </a>
+                  
+                )}
+              </div>
+                                  <div className="flex justify-center gap-2 mt-4">
                       {coaches.map((_, index) => (
                         <button
                           key={index}
@@ -81,10 +87,6 @@ export default function Coaches() {
                       ))}
                         
                     </div>
-                  </div>
-                  </a>
-                )}
-              </div>
             </div>
           </div>
 

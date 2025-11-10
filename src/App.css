@@ -1,6 +1,6 @@
 @font-face {
   font-family: gym;
-  src: url("/assets/NCLMonsterBeast-Demo.otf");
+  src: url("/assets/BebasNeue-Regular.ttf");
 }
 
 #root {
@@ -130,17 +130,10 @@ li{
   border-radius: 16px;
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border: 1px solid rgba(244, 235, 235, 0.616); /* subtle border */
+  border: 1px solid rgba(59, 130, 246, 0.2); /* subtle border */
   padding: 20px;
 }
-.glass-nav {
-  background: rgba(1, 17, 36, 0.411); /* semi-transparent */
-  border-radius: 16px;
-  backdrop-filter: blur(10px); /* glass blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */  
-  padding: 20px;
 
-}
 .glass-button {
   background: rgba(1, 17, 36, 0.411); /* semi-transparent */
   border-radius: 16px;
