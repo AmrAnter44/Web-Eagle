@@ -2,67 +2,38 @@ import React, { useState, useEffect } from 'react';
 import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
-import { supabase } from '../lib/supabaseClient';
+import { dataService } from '../data/dataService';
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
-  const [offers33, setOffers33] = useState([]);
   const [ptPackages, setPtPackages] = useState([]);
-  const [showOffers, setShowOffers] = useState(false);
-  const [showOffers33, setShowOffers33] = useState(false);
-  const [showPT, setShowPT] = useState(false);
 
   useEffect(() => {
-    // fetch العروض العادية
-    supabase
-      .from('offers')
-      .select('*')
-      .order('id', { ascending: true })
-      .then(({ data }) => {
-        if (data) {
-          setOffers(data);
-          
-          // حساب العروض بخصم 33%
-          const discountedOffers = data.map(offer => {
-            const originalPrice = parseFloat(offer.price);
-            const priceAfterDiscount = originalPrice * 0.67;
-            const discountedPrice = Math.round(priceAfterDiscount / 10) * 10;
-            
-            return {
-              ...offer,
-              price: originalPrice,
-              price_new: discountedPrice
-            };
-          });
-          setOffers33(discountedOffers);
-        }
-      });
+    // Fetch العروض
+    dataService.getOffers().then(({ data }) => {
+      if (data) setOffers(data);
+    });
 
-    // fetch باقات PT
-    supabase
-      .from('pt_packages')
-      .select('*')
-      .order('sessions', { ascending: true })
-      .then(({ data }) => {
-        if (data) setPtPackages(data);
-      });
+    // Fetch باقات PT
+    dataService.getPtPackages().then(({ data }) => {
+      if (data) setPtPackages(data);
+    });
   }, []);
 
   function handlebook(offer) {
-    const phone = "201028188900";  
+    const phone = "201028188900";
     const message = `Hello, I would like to book the ${offer.duration} offer.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
 
   function handlePTBook(ptPackage) {
-    const phone = "201028188900";  
+    const phone = "201028188900";
     const message = `Hello, I would like to book ${ptPackage.sessions} PT Sessions.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
 
-  // حساب سعر الحصة الواحدة
   const calculatePricePerSession = (price, sessions) => {
     return Math.round(price / sessions);
   };
@@ -70,291 +41,204 @@ export default function Home() {
   return (
     <>
       <Nav2 />
-      
+
       <div className="mt-20">
-        {/* ==================== VIP GOLD ==================== */}
-        <h2 className='text-xl pt-9 text-white font-semibold gymfont'>
-          VIP Body Package
-        </h2>
+        {/* ==================== Personal Training Section ==================== */}
+        {/* <div className='w-full py-9 bg-gray-900'>
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className='text-3xl md:text-4xl text-red-600 font-bold gymfont'>
+                <i className="fa-solid fa-dumbbell"></i> Personal Training (PT)
+              </h2>
+            </div>
 
-        <div className="flex flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4">
-          <Link 
-            to={'/gold'} 
-            className="group relative gold-text glass-button hover:bg-blue-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500"
-          >
-            <span className="m-auto">Gold</span>
-            <img 
-              src="./logo.png" 
-              alt="" 
-              className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" 
-            />
-          </Link>
-        </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              {ptPackages.length === 0 ? (
+                <div className="col-span-full text-center py-8">
+                  <i className="text-3xl text-red-600 fa-solid fa-spinner fa-spin" />
+                  <p className="text-white mt-4">Loading PT Packages...</p>
+                </div>
+              ) : (
+                ptPackages.map((pkg) => {
+                  const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
+                  const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
+                  const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
 
-        {/* ==================== قسم PT (الجديد) ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
-            {/* الزر الأخضر */}
-            <button
-              onClick={() => setShowPT(!showPT)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-blue-600 font-bold gymfont bg-white hover:bg-white/80 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
-            >
-              <i className="fa-solid fa-dumbbell"></i>
-              Personal Training (PT)
-              <i className={`fas fa-chevron-${showPT ? 'up' : 'down'} transition-transform duration-300`}></i>
-            </button>
+                  return (
+                    <div key={pkg.id} className="bg-white rounded-lg shadow-lg border-2 border-red-500/30 hover:border-red-500 transition-all duration-300 overflow-hidden">
+                      <div className="bg-red-600 text-white p-4">
+                        <h3 className='font-bold text-2xl gymfont text-center'>
+                          <i className="fa-solid fa-dumbbell pr-2"></i>
+                          {pkg.sessions} Sessions
+                        </h3>
+                      </div>
 
-            {/* محتوى PT عند الفتح */}
-            {showPT && (
-              <div className='pt-6 animate-fade-in'>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                  {ptPackages.length === 0 ? (
-                    <div className="col-span-full text-center py-8">
-                      <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
-                      <p className="text-blue-600 mt-4">Loading PT Packages...</p>
-                    </div>
-                  ) : (
-                    ptPackages.map((pkg) => {
-                      const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
-                      const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
-                      const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
-
-                      return (
-                        <div key={pkg.id} className="glass w-full border-2 border-blue-500/30 hover:border-blue-500/50 transition-all">
-                          <div className="bg-white text-blue-600 p-3 rounded-t-lg">
-                            <h3 className='font-bold text-2xl gymfont text-center'>
-                              <i className="fa-solid fa-dumbbell pr-2"></i> 
-                              {pkg.sessions} Sessions
-                            </h3>
-                          </div>
-
-                          <div className='p-4'>
-                            {/* السعر */}
-                            <div className='mb-4'>
-                              <p className='text-sm text-gray-400 mb-1'>Total Price:</p>
-                              <div className='flex items-center justify-between'>
-                                {hasDiscount ? (
-                                  <>
-                                    <span className="text-lg line-through text-gray-400">
-                                      {pkg.price} EGP
-                                    </span>
-                                    <span className="text-2xl font-bold text-blue-400">
-                                      {pkg.price_discount} EGP
-                                    </span>
-                                  </>
-                                ) : (
-                                  <span className="text-2xl font-bold text-white">
-                                    {pkg.price} EGP
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-
-                            {/* سعر الحصة الواحدة */}
-                            <div className='bg-blue-900/30 p-3 rounded-lg mb-4 border border-blue-500/20'>
-                              <p className='text-sm text-gray-300 mb-1 text-center'>Price per session:</p>
-                              <div className='flex items-center justify-center gap-2'>
-                                <i className="fa-solid fa-tag text-blue-400"></i>
-                                <span className='text-3xl font-bold text-blue-400'>
-                                  {pricePerSession} EGP
+                      <div className='p-6'>
+                        <div className='mb-4'>
+                          <p className='text-sm text-gray-500 mb-2'>Total Price:</p>
+                          <div className='flex items-center justify-center gap-3'>
+                            {hasDiscount ? (
+                              <>
+                                <span className="text-lg line-through text-gray-400">
+                                  {pkg.price} EGP
                                 </span>
-                              </div>
-                            </div>
-
-                            {/* تفاصيل إضافية */}
-                            <ul className='text-start text-gray-300 space-y-2 mb-4'>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>{pkg.sessions} Personal Training Sessions</span>
-                              </li>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>Professional Coach</span>
-                              </li>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>Customized Training Plan</span>
-                              </li>
-                            </ul>
-
-                            {/* زر الحجز */}
-                            <button
-                              onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                            >
-                              Book Now
-                            </button>
+                                <span className="text-3xl font-bold text-red-600">
+                                  {pkg.price_discount} EGP
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-3xl font-bold text-gray-900">
+                                {pkg.price} EGP
+                              </span>
+                            )}
                           </div>
                         </div>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            )}
+
+                        <div className='bg-red-50 p-4 rounded-lg mb-4 border-2 border-red-500/20'>
+                          <p className='text-sm text-gray-600 mb-1 text-center'>Price per session:</p>
+                          <div className='flex items-center justify-center gap-2'>
+                            <i className="fa-solid fa-tag text-red-600"></i>
+                            <span className='text-2xl font-bold text-red-600'>
+                              {pricePerSession} EGP
+                            </span>
+                          </div>
+                        </div>
+
+                        <ul className='text-start text-gray-700 space-y-2 mb-6'>
+                          <li className='flex items-center gap-2'>
+                            <i className='fa-solid fa-check text-red-600'></i>
+                            <span>{pkg.sessions} Personal Training Sessions</span>
+                          </li>
+                          <li className='flex items-center gap-2'>
+                            <i className='fa-solid fa-check text-red-600'></i>
+                            <span>Professional Coach</span>
+                          </li>
+                          <li className='flex items-center gap-2'>
+                            <i className='fa-solid fa-check text-red-600'></i>
+                            <span>Customized Training Plan</span>
+                          </li>
+                        </ul>
+
+                        <button
+                          onClick={() => handlePTBook(pkg)}
+                          className='w-full px-4 text-lg py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-bold shadow-md'
+                        >
+                          Book Now
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* ==================== قسم العروض العادية ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
-            <button
-              onClick={() => setShowOffers(!showOffers)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-white font-bold gymfont bg-blue-600 hover:bg-blue-700 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
-            >
-              Our Offers
-              <i className={`fas fa-chevron-${showOffers ? 'up' : 'down'} transition-transform duration-300`}></i>
-            </button>
+        {/* ==================== Membership Offers Section ==================== */}
+        <div className='w-full py-12 bg-red-600'>
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont'>
+                <i className="fa-solid fa-fire pr-2"></i>
+                Membership Offers
+              </h2>
+            </div>
 
-            {showOffers && (
-              <div className='pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in'>
-                {offers.length === 0 ? (
-                  <div className="col-span-full text-center py-8">
-                    <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
-                  </div>
-                ) : (
-                  offers.map((offer) => (
-                    <div key={offer.id} className="glass">
-                      <h3 className='p-1 font-bold text-xl gymfont text-blue-600'>
-                        <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              {offers.length === 0 ? (
+                <div className="col-span-full text-center py-8">
+                  <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
+                </div>
+              ) : (
+                offers.map((offer) => (
+                  <div key={offer.id} className="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-white">
+                    <div className="bg-white p-4 border-b-4 border-red-600">
+                      <h3 className='font-bold text-2xl gymfont text-red-600 text-center'>
+                        <i className="fa-solid fa-dumbbell pr-2"></i>
+                        {offer.duration}
                       </h3>
+                    </div>
 
-                      <div className='flex justify-between'>
+                    <div className='p-6'>
+                      <div className='flex justify-center items-center gap-3 mb-6'>
                         {offer.price_new && offer.price_new !== "0" ? (
                           <>
-                            <h3 className="p-1 font-bold text-lg line-through text-gray-400">
+                            <h3 className="font-bold text-xl line-through text-gray-400">
                               {offer.price} EGP
                             </h3>
-                            <h3 className="p-1 font-bold text-lg text-blue-600">
+                            <h3 className="font-bold text-3xl text-red-600">
                               {offer.price_new} EGP
                             </h3>
                           </>
                         ) : (
-                          <h3 className="p-1 font-bold text-lg">
+                          <h3 className="font-bold text-3xl text-gray-900">
                             {offer.price} EGP
                           </h3>
                         )}
                       </div>
 
-                      <ul className='p-1 text-start text-white-700'>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
+                      <ul className='text-start text-gray-700 space-y-3 mb-6'>
+                        <li className='flex items-center gap-2 font-semibold'>
+                          <i className='fa-solid fa-check text-red-600'></i>
+                          <span>{offer.private} Sessions Personal Training</span>
                         </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.inbody} Sessions In Inbody
+                        <li className='flex items-center gap-2 font-semibold'>
+                          <i className='fa-solid fa-check text-red-600'></i>
+                          <span>{offer.inbody} Sessions In Inbody</span>
                         </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
+                        <li className='flex items-center gap-2 font-semibold'>
+                          <i className='fa-solid fa-check text-red-600'></i>
+                          <span>{offer.invite} Sessions Invitations</span>
                         </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> ALL Classes
+                        <li className='flex items-center gap-2 font-semibold'>
+                          <i className='fa-solid fa-check text-red-600'></i>
+                          <span>ALL Classes</span>
                         </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> SPA
+                        <li className='flex items-center gap-2 font-semibold'>
+                          <i className='fa-solid fa-check text-red-600'></i>
+                          <span>SPA</span>
                         </li>
                       </ul>
-                            <button
-                              onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                            >
-                              Book Now
-                            </button>
+
+                      <button
+                        onClick={() => handlebook(offer)}
+                        className='w-full px-4 text-lg py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-bold shadow-md'
+                      >
+                        Book Now
+                      </button>
                     </div>
-                  ))
-                )}
-              </div>
-            )}
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
 
-        {/* ==================== قسم العروض بخصم 33% ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
-            <button
-              onClick={() => setShowOffers33(!showOffers33)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-white font-bold gymfont bg-gray-700 hover:bg-gray-600 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
-            >
-              33% OFF Offers
-              <i className={`fas fa-chevron-${showOffers33 ? 'up' : 'down'} transition-transform duration-300`}></i>
-            </button>
-            
-            {showOffers33 && (
-              <>
-                <p className='text-white text-xl mt-4 text-center'>The offer is valid only from 3 AM to 3 PM.</p>
-                
-                <div className='pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in'>
-                  {offers33.length === 0 ? (
-                    <div className="col-span-full text-center py-8">
-                      <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
-                    </div>
-                  ) : (
-                    offers33.map((offer) => (
-                      <div key={`33-${offer.id}`} className="glass">
-                        <h3 className='p-1 font-bold text-xl gymfont text-white'>
-                          <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
-                        </h3>
-
-                        <div className='flex justify-between'>
-                          <h3 className="p-1 font-bold text-lg line-through text-gray-400">
-                            {offer.price} EGP
-                          </h3>
-                          <h3 className="p-1 font-bold text-lg text-white-600">
-                            {offer.price_new} EGP
-                          </h3>
-                        </div>
-
-                        <ul className='p-1 text-start text-white-700'>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.inbody} Sessions In Inbody
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> SPA
-                          </li>
-                        </ul>
-
-                            <button
-                              onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                            >
-                              Book Now 
-                            </button>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="marquee">
-          <p className="ml-11">
-            <span># INHALLE PASSION</span> &nbsp; &nbsp; 
-            <span># INHALLE PASSION</span> &nbsp; &nbsp; 
-            <span># INHALLE PASSION</span> &nbsp; &nbsp; 
-            <span># INHALLE PASSION</span> &nbsp; &nbsp;
+        {/* ==================== Marquee Section ==================== */}
+        <div className="marquee bg-white">
+          <p className="ml-11 text-red-600">
+            <span># INHALE PASSION</span> &nbsp; &nbsp;
+            <span># INHALE PASSION</span> &nbsp; &nbsp;
+            <span># INHALE PASSION</span> &nbsp; &nbsp;
+            <span># INHALE PASSION</span> &nbsp; &nbsp;
           </p>
         </div>
 
+        {/* ==================== Coaches Section ==================== */}
         <Coaches />
 
-        <div className='flex justify-evenly'>
+        {/* ==================== Features Section ==================== */}
+        <div className='flex justify-evenly py-8 bg-white'>
           <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-clock text-xl text-blue-400 mb-1"></i>
-            <p className="text-white font-bold text-sm">24/7</p>
-            <p className="text-gray-300 text-xs">Open</p>
+            <i className="fas fa-clock text-3xl text-red-600 mb-2"></i>
+            <p className="text-gray-900 font-bold text-lg">24/7</p>
+            <p className="text-gray-600 text-sm">Open</p>
           </div>
 
           <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-wifi text-xl text-blue-400 mb-1"></i>
-            <p className="text-white font-bold text-sm">FREE</p>
-            <p className="text-gray-300 text-xs">Wi-Fi</p>
+            <i className="fas fa-wifi text-3xl text-red-600 mb-2"></i>
+            <p className="text-gray-900 font-bold text-lg">FREE</p>
+            <p className="text-gray-600 text-sm">Wi-Fi</p>
           </div>
         </div>
       </div>

@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { dataService } from '../data/dataService';
 
 export default function Classes() {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     // مباشر وبسيط - fetch لما الصفحة تفتح
-    supabase
-      .from('classes')
-      .select('*')
-      .order('id', { ascending: true })
-      .then(({ data }) => {
-        if (data) setClasses(data);
-      });
+    dataService.getClasses().then(({ data }) => {
+      if (data) setClasses(data);
+    });
   }, []);
-  console.log(classes);
-  
 
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 flex-wrap justify-center px-4 my-8 mt-40">
       {classes.length === 0 ? (
         <div className="text-center py-8 mt-40">
-          <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
+          <i className="text-3xl text-red-700 fa-solid fa-spinner fa-spin" />
         </div>
       ) : (
         classes.map((classItem) => (
@@ -30,7 +24,7 @@ export default function Classes() {
             className={`
               min-w-[280px] border-2 p-6 rounded-xl flex flex-col justify-center text-center shadow-lg
               ${classItem.mem 
-                ? "bg-blue-500/10 border-blue-500/30 backdrop-blur-md" 
+                ? "bg-red-500/10 border-red-500/30 backdrop-blur-md" 
                 : classItem.mix === "Ladies" 
                 ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md " 
                 : "bg-slate-500/10 border-slate-500/20 backdrop-blur-md"
@@ -65,7 +59,7 @@ export default function Classes() {
             </p>
 
             {classItem.mem && (
-              <span className="text-sm px-1 text-blue-400">
+              <span className="text-sm px-1 text-red-400">
                 Out of Membership
               </span>
             )}

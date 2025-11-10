@@ -198,7 +198,7 @@ function Map() {
               ease: "easeInOut"
             }}
           >
-            <div className="w-full h-full bg-blue-400 rounded-lg" />
+            <div className="w-full h-full bg-red-400 rounded-lg" />
           </motion.div>
         ))}
       </motion.div>

@@ -9,7 +9,7 @@ body {
 }
 
 .gold {
-  @apply bg-blue-500;
+  @apply bg-red-500;
 }
 
 .sale {

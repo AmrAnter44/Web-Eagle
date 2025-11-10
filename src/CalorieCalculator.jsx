@@ -11,7 +11,7 @@ function CardContent({ children }) {
 function Button({ children, ...props }) {
   return (
     <button
-      className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl w-full"
+      className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl w-full"
       {...props}
     >
       {children}
@@ -22,7 +22,7 @@ function Button({ children, ...props }) {
 function Input(props) {
   return (
     <input
-      className="border rounded-xl p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="border rounded-xl p-2 w-full focus:outline-none focus:ring-2 focus:ring-red-500"
       {...props}
     />
   );
@@ -35,7 +35,7 @@ function Label({ children }) {
 function Select({ value, onChange, children }) {
   return (
     <select
-      className="border rounded-xl p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="border rounded-xl p-2 w-full focus:outline-none focus:ring-2 focus:ring-red-500"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >

@@ -172,7 +172,7 @@ export default function Shop() {
           
           <motion.button
             onClick={() => orderNow(meal.name)}
-            className="mt-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="mt-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
             variants={buttonVariants}
             initial="rest"
             whileHover="hover"
@@ -245,7 +245,7 @@ export default function Shop() {
 
           <motion.button
             onClick={() => orderNow(shake.name)}
-            className="mt-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="mt-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
             variants={buttonVariants}
             initial="rest"
             whileHover="hover"
@@ -274,7 +274,7 @@ export default function Shop() {
       >
         <motion.button
           onClick={() => setActiveTab("meals")}
-          className={`px-4 py-2 rounded ${activeTab === "meals" ? "bg-blue-500 text-white" : "glass"}`}
+          className={`px-4 py-2 rounded ${activeTab === "meals" ? "bg-red-500 text-white" : "glass"}`}
           variants={tabVariants}
           animate={activeTab === "meals" ? "active" : "inactive"}
           whileHover="hover"
@@ -285,7 +285,7 @@ export default function Shop() {
         
         <motion.button
           onClick={() => setActiveTab("shakes")}
-          className={`px-4 py-2 rounded ${activeTab === "shakes" ? "bg-blue-500 text-white" : "glass"}`}
+          className={`px-4 py-2 rounded ${activeTab === "shakes" ? "bg-red-500 text-white" : "glass"}`}
           variants={tabVariants}
           animate={activeTab === "shakes" ? "active" : "inactive"}
           whileHover="hover"

@@ -124,7 +124,7 @@ export default function Nav() {
           >
             <Link
               to="/"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span
@@ -138,7 +138,7 @@ export default function Nav() {
 
             <Link
               to="/classes"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span
@@ -152,7 +152,7 @@ export default function Nav() {
 
             <Link
               to="/map"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
+              className="hover:text-red-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
             >
               <motion.span

@@ -18,6 +18,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  
 }
 
 #root {
@@ -41,11 +42,11 @@ body {
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #ff6464aa);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #fb6161aa);
 }
 
 @keyframes logo-spin {
@@ -71,12 +72,12 @@ body {
   color: #888;
 }
 
-.gympng {
+/* .gympng {
   background-image: url("/assets/bg.png");
   background-position: center;
   background-repeat: repeat;
   height: 100%;
-}
+} */
 
 .w {
   width: 130px;
@@ -149,14 +150,14 @@ li{
   border: 3px solid white;
 }
 .glass-class {
-  background: rgba(0, 119, 255, 0.272); /* semi-transparent */
+  background: rgba(255, 0, 0, 0.272); /* semi-transparent */
   border-radius: 16px;
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */  
   padding: 20px;
 }
 .glass-class-ladies {
-  background: rgba(255, 0, 212, 0.272); /* semi-transparent */
+  background: rgba(255, 0, 0, 0.272); /* semi-transparent */
   border-radius: 16px;
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */  
@@ -180,7 +181,7 @@ li{
 .marquee {
   width: 100%;
   overflow: hidden;
-  background: rgba(0, 102, 255, 0.486);
+  background: rgba(255, 0, 0, 0.486);
   color: white;
   white-space: nowrap;
   position: relative;
