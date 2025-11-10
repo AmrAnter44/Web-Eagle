@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function PageWithVideo() {
   const [open, setOpen] = useState(false);
-      const words = ["INHALE PASSION", "Eagle Gym"];
+      const words = ["Believe in Yourself", "Eagle Gym"];
     const [text, setText] = useState("");
     const [wordIndex, setWordIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);

@@ -163,15 +163,15 @@ export default function Home() {
                       <div className='flex justify-center items-center gap-3 mb-6'>
                         {offer.price_new && offer.price_new !== "0" ? (
                           <>
-                            <h3 className="font-bold text-xl line-through text-gray-400">
+                            <h3 className="font-bold text-xl line-through text-gray-400 gymfont">
                               {offer.price} EGP
                             </h3>
-                            <h3 className="font-bold text-3xl text-red-600">
+                            <h3 className="font-bold text-3xl text-red-600 gymfont">
                               {offer.price_new} EGP
                             </h3>
                           </>
                         ) : (
-                          <h3 className="font-bold text-3xl text-gray-900">
+                          <h3 className="font-bold text-3xl text-gray-900 gymfont">
                             {offer.price} EGP
                           </h3>
                         )}
@@ -217,10 +217,10 @@ export default function Home() {
         {/* ==================== Marquee Section ==================== */}
         <div className="marquee bg-red-600">
           <p className="ml-11 text-white font-bold">
-            <span># INHALE PASSION</span> &nbsp; &nbsp;
-            <span ># INHALE PASSION</span> &nbsp; &nbsp;
-            <span># INHALE PASSION</span> &nbsp; &nbsp;
-            <span># INHALE PASSION</span> &nbsp; &nbsp;
+            <span># Believe in Yourself</span> &nbsp; &nbsp;
+            <span ># Believe in Yourself</span> &nbsp; &nbsp;
+            <span># Believe in Yourself</span> &nbsp; &nbsp;
+            <span># Believe in Yourself</span> &nbsp; &nbsp;
           </p>
         </div>
 

@@ -22,12 +22,12 @@ export default function Classes() {
           <div
             key={classItem.id}
             className={`
-              min-w-[280px] border-2 p-6 rounded-xl flex flex-col justify-center text-center shadow-lg
+              min-w-[280px] border-2 p-6 rounded-xl flex flex-col justify-center text-center shadow-lg  t
               ${classItem.mem 
-                ? "bg-red-500/10 border-red-500/30 backdrop-blur-md" 
+                ? " border-red-500/30 text-white backdrop-blur-md bg-black" 
                 : classItem.mix === "Ladies" 
-                ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md " 
-                : "bg-slate-500/10 border-slate-500/20 backdrop-blur-md"
+                ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md bg-red-600" 
+                : " backdrop-blur-md bg-white text-red-600"
               } 
             `}
           >
@@ -53,13 +53,13 @@ export default function Classes() {
             </p>
 
             <p className={`p-2 font-semibold text-lg 
-                          ${classItem.mix == "Ladies" ? "text-fuchsia-400" : ""}
+                          ${classItem.mix == "Ladies" ? "text-white" : ""}
             `}>
               {classItem.mix}
             </p>
 
             {classItem.mem && (
-              <span className="text-sm px-1 text-red-400">
+              <span className="text-sm px-1 text-red-600">
                 Out of Membership
               </span>
             )}
