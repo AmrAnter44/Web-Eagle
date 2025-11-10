@@ -2,7 +2,7 @@
 class DataService {
   constructor() {
     // نحمل البيانات كل مرة من fetch
-    this.dataUrl = '/src/data/data.json';
+    this.dataUrl = '../public/data/data.json';
   }
 
   async loadData() {
