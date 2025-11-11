@@ -142,7 +142,7 @@ export default function Nav() {
               </motion.span>
             </Link>
 
-            <Link
+            {/* <Link
               to="/map"
               className="hover:text-red-600 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
               onClick={() => setOpen(false)}
@@ -154,7 +154,7 @@ export default function Nav() {
               >
                 Map
               </motion.span>
-            </Link>
+            </Link> */}
 
             <Link
               to={"/shop"}
