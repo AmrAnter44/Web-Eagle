@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
@@ -9,12 +10,10 @@ export default function Home() {
   const [ptPackages, setPtPackages] = useState([]);
 
   useEffect(() => {
-    // Fetch العروض
     dataService.getOffers().then(({ data }) => {
       if (data) setOffers(data);
     });
 
-    // Fetch باقات PT
     dataService.getPtPackages().then(({ data }) => {
       if (data) setPtPackages(data);
     });
@@ -38,209 +37,264 @@ export default function Home() {
     return Math.round(price / sessions);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      y: -10,
+      scale: 1.03,
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+
   return (
     <>
       <Nav2 />
 
-      <div>
-        {/* ==================== Personal Training Section ==================== */}
-        {/* <div className='w-full py-9 bg-gray-900'>
+      <div className="min-h-screen">
+        
+        {/* ==================== Membership Offers Section ==================== */}
+        <motion.div 
+          className='w-full py-16 bg-gradient-to-b from-black via-red-950/20 to-black'
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className='text-3xl md:text-4xl text-red-600 font-bold gymfont'>
-                <i className="fa-solid fa-dumbbell"></i> Personal Training (PT)
+            
+            <motion.div 
+              className="text-center mb-12"
+              variants={titleVariants}
+            >
+              <h2 className='text-4xl md:text-5xl text-white font-bold gymfont mb-4 gradient-text'>
+                MEMBERSHIP OFFERS
               </h2>
-            </div>
+              <div className="w-32 h-1 bg-gradient-to-r from-red-600 to-white mx-auto rounded-full"></div>
+            </motion.div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              {ptPackages.length === 0 ? (
+            <motion.div 
+              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+              variants={containerVariants}
+            >
+              {offers.length === 0 ? (
                 <div className="col-span-full text-center py-8">
-                  <i className="text-3xl text-red-600 fa-solid fa-spinner fa-spin" />
-                  <p className="text-white mt-4">Loading PT Packages...</p>
+                  <motion.i 
+                    className="text-4xl text-red-600 fa-solid fa-spinner fa-spin"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
                 </div>
               ) : (
-                ptPackages.map((pkg) => {
-                  const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
-                  const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
-                  const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
-
-                  return (
-                    <div key={pkg.id} className="bg-white rounded-lg shadow-lg border-2 border-red-500/30 hover:border-red-500 transition-all duration-300 overflow-hidden">
-                      <div className="bg-red-600 text-white p-4">
-                        <h3 className='font-bold text-2xl gymfont text-center'>
+                offers.map((offer, index) => (
+                  <motion.div 
+                    key={offer.id} 
+                    className="relative group"
+                    variants={cardVariants}
+                    whileHover="hover"
+                    custom={index}
+                  >
+                    {/* Glow Effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-black rounded-2xl blur-xl opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                    
+                    {/* Card Content */}
+                    <div className="relative bg-black/90 backdrop-blur-xl rounded-2xl overflow-hidden border-2 border-red-600/30 group-hover:border-red-600 transition-all duration-300">
+                      
+                      {/* Header */}
+                      <div className="bg-gradient-to-r from-red-600 to-red-800 p-6 relative overflow-hidden">
+                        <motion.div 
+                          className="absolute inset-0 bg-white/10"
+                          initial={{ x: '-100%' }}
+                          whileHover={{ x: '100%' }}
+                          transition={{ duration: 0.6 }}
+                        />
+                        <h3 className='relative font-bold text-3xl gymfont text-white text-center tracking-wider'>
                           <i className="fa-solid fa-dumbbell pr-2"></i>
-                          {pkg.sessions} Sessions
+                          {offer.duration}
                         </h3>
                       </div>
 
-                      <div className='p-6'>
-                        <div className='mb-4'>
-                          <p className='text-sm text-gray-500 mb-2'>Total Price:</p>
-                          <div className='flex items-center justify-center gap-3'>
-                            {hasDiscount ? (
-                              <>
-                                <span className="text-lg line-through text-gray-400">
-                                  {pkg.price} EGP
-                                </span>
-                                <span className="text-3xl font-bold text-red-600">
-                                  {pkg.price_discount} EGP
-                                </span>
-                              </>
-                            ) : (
-                              <span className="text-3xl font-bold text-gray-900">
-                                {pkg.price} EGP
-                              </span>
-                            )}
-                          </div>
+                      {/* Body */}
+                      <div className='p-6 space-y-6'>
+                        
+                        {/* Price Section */}
+                        <div className='flex justify-center items-center gap-4'>
+                          {offer.price_new && offer.price_new !== "0" ? (
+                            <>
+                              <motion.h3 
+                                className="font-bold text-xl line-through text-gray-500 gymfont"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.2 }}
+                              >
+                                {offer.price} EGP
+                              </motion.h3>
+                              <motion.h3 
+                                className="font-bold text-4xl text-red-600 gymfont"
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3, type: "spring" }}
+                              >
+                                {offer.price_new} EGP
+                              </motion.h3>
+                            </>
+                          ) : (
+                            <motion.h3 
+                              className="font-bold text-4xl text-white gymfont"
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.3, type: "spring" }}
+                            >
+                              {offer.price} EGP
+                            </motion.h3>
+                          )}
                         </div>
 
-                        <div className='bg-red-50 p-4 rounded-lg mb-4 border-2 border-red-500/20'>
-                          <p className='text-sm text-gray-600 mb-1 text-center'>Price per session:</p>
-                          <div className='flex items-center justify-center gap-2'>
-                            <i className="fa-solid fa-tag text-red-600"></i>
-                            <span className='text-2xl font-bold text-red-600'>
-                              {pricePerSession} EGP
-                            </span>
-                          </div>
-                        </div>
-
-                        <ul className='text-start text-gray-700 space-y-2 mb-6'>
-                          <li className='flex items-center gap-2'>
-                            <i className='fa-solid fa-check text-red-600'></i>
-                            <span>{pkg.sessions} Personal Training Sessions</span>
-                          </li>
-                          <li className='flex items-center gap-2'>
-                            <i className='fa-solid fa-check text-red-600'></i>
-                            <span>Professional Coach</span>
-                          </li>
-                          <li className='flex items-center gap-2'>
-                            <i className='fa-solid fa-check text-red-600'></i>
-                            <span>Customized Training Plan</span>
-                          </li>
+                        {/* Features List */}
+                        <ul className='space-y-3 text-white'>
+                          <motion.li 
+                            className='flex items-center gap-3 font-semibold text-lg'
+                            whileHover={{ x: 5 }}
+                          >
+                            <i className='fa-solid fa-check text-red-600 text-xl'></i>
+                            <span>{offer.private} PT Sessions</span>
+                          </motion.li>
+                          <motion.li 
+                            className='flex items-center gap-3 font-semibold text-lg'
+                            whileHover={{ x: 5 }}
+                          >
+                            <i className='fa-solid fa-check text-red-600 text-xl'></i>
+                            <span>{offer.inbody} InBody Scans</span>
+                          </motion.li>
+                          <motion.li 
+                            className='flex items-center gap-3 font-semibold text-lg'
+                            whileHover={{ x: 5 }}
+                          >
+                            <i className='fa-solid fa-check text-red-600 text-xl'></i>
+                            <span>{offer.invite} Invitations</span>
+                          </motion.li>
+                          <motion.li 
+                            className='flex items-center gap-3 font-semibold text-lg'
+                            whileHover={{ x: 5 }}
+                          >
+                            <i className='fa-solid fa-check text-red-600 text-xl'></i>
+                            <span>ALL Classes</span>
+                          </motion.li>
+                          <motion.li 
+                            className='flex items-center gap-3 font-semibold text-lg'
+                            whileHover={{ x: 5 }}
+                          >
+                            <i className='fa-solid fa-check text-red-600 text-xl'></i>
+                            <span>SPA Access</span>
+                          </motion.li>
                         </ul>
 
-                        <button
-                          onClick={() => handlePTBook(pkg)}
-                          className='w-full px-4 text-lg py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-bold shadow-md'
+                        {/* Book Button */}
+                        <motion.button
+                          onClick={() => handlebook(offer)}
+                          className='relative w-full px-6 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-bold text-lg gymfont overflow-hidden group/btn'
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          Book Now
-                        </button>
+                          <span className="relative z-10">BOOK NOW</span>
+                          <motion.div 
+                            className="absolute inset-0 bg-white/20"
+                            initial={{ x: '-100%' }}
+                            whileHover={{ x: '100%' }}
+                            transition={{ duration: 0.6 }}
+                          />
+                        </motion.button>
                       </div>
                     </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
-        </div> */}
-
-        {/* ==================== Membership Offers Section ==================== */}
-        <div className='w-full py-12 bg-red-600'>
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
-              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont'>
-
-                Membership Offers
-              </h2>
-            </div>
-
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              {offers.length === 0 ? (
-                <div className="col-span-full text-center py-8">
-                  <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
-                </div>
-              ) : (
-                offers.map((offer) => (
-                  <div key={offer.id} className="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-white">
-                    <div className="bg-white p-4 border-b-4 border-red-600">
-                      <h3 className='font-bold text-2xl gymfont text-red-600 text-center'>
-                        <i className="fa-solid fa-dumbbell pr-2"></i>
-                        {offer.duration}
-                      </h3>
-                    </div>
-
-                    <div className='p-6'>
-                      <div className='flex justify-center items-center gap-3 mb-6'>
-                        {offer.price_new && offer.price_new !== "0" ? (
-                          <>
-                            <h3 className="font-bold text-xl line-through text-gray-400 gymfont">
-                              {offer.price} EGP
-                            </h3>
-                            <h3 className="font-bold text-3xl text-red-600 gymfont">
-                              {offer.price_new} EGP
-                            </h3>
-                          </>
-                        ) : (
-                          <h3 className="font-bold text-3xl text-gray-900 gymfont">
-                            {offer.price} EGP
-                          </h3>
-                        )}
-                      </div>
-
-                      <ul className='text-start text-gray-700 space-y-3 mb-6'>
-                        <li className='flex items-center gap-2 font-semibold'>
-                          <i className='fa-solid fa-check text-red-600'></i>
-                          <span>{offer.private} Sessions Personal Training</span>
-                        </li>
-                        <li className='flex items-center gap-2 font-semibold'>
-                          <i className='fa-solid fa-check text-red-600'></i>
-                          <span>{offer.inbody} Sessions In Inbody</span>
-                        </li>
-                        <li className='flex items-center gap-2 font-semibold'>
-                          <i className='fa-solid fa-check text-red-600'></i>
-                          <span>{offer.invite} Sessions Invitations</span>
-                        </li>
-                        <li className='flex items-center gap-2 font-semibold'>
-                          <i className='fa-solid fa-check text-red-600'></i>
-                          <span>ALL Classes</span>
-                        </li>
-                        <li className='flex items-center gap-2 font-semibold'>
-                          <i className='fa-solid fa-check text-red-600'></i>
-                          <span>SPA</span>
-                        </li>
-                      </ul>
-
-                      <button
-                        onClick={() => handlebook(offer)}
-                        className='w-full px-4 text-lg py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-bold shadow-md'
-                      >
-                        Book Now
-                      </button>
-                    </div>
-                  </div>
+                  </motion.div>
                 ))
               )}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ==================== Marquee Section ==================== */}
-        <div className="marquee bg-red-600">
-          <p className="ml-11 text-white font-bold">
-            <span># Believe in Yourself</span> &nbsp; &nbsp;
-            <span ># Believe in Yourself</span> &nbsp; &nbsp;
-            <span># Believe in Yourself</span> &nbsp; &nbsp;
-            <span># Believe in Yourself</span> &nbsp; &nbsp;
+        <motion.div 
+          className="marquee"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="gymfont">
+            <span># BELIEVE IN YOURSELF</span> &nbsp; &nbsp;
+            <span># EAGLE GYM</span> &nbsp; &nbsp;
+            <span># NO PAIN NO GAIN</span> &nbsp; &nbsp;
+            <span># TRANSFORM YOUR BODY</span> &nbsp; &nbsp;
           </p>
-        </div>
+        </motion.div>
 
         {/* ==================== Coaches Section ==================== */}
         <Coaches />
 
         {/* ==================== Features Section ==================== */}
-        <div className='flex justify-evenly py-8 bg-white'>
-          <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-clock text-3xl text-red-600 mb-2"></i>
-            <p className="text-gray-900 font-bold text-lg">24/7</p>
-            <p className="text-gray-600 text-sm">Open</p>
-          </div>
+        <motion.div 
+          className='flex justify-center gap-8 lg:gap-16 py-16 bg-black'
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          <motion.div 
+            className="glass rounded-2xl p-8 text-center min-w-[200px]"
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <motion.i 
+              className="fas fa-clock text-5xl text-red-600 mb-4"
+              whileHover={{ scale: 1.2, rotate: 360 }}
+              transition={{ duration: 0.6 }}
+            />
+            <p className="text-white font-bold text-2xl gymfont mb-2">24/7</p>
+            <p className="text-gray-400 text-lg">OPEN</p>
+          </motion.div>
 
-          <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-wifi text-3xl text-red-600 mb-2"></i>
-            <p className="text-gray-900 font-bold text-lg">FREE</p>
-            <p className="text-gray-600 text-sm">Wi-Fi</p>
-          </div>
-        </div>
+          <motion.div 
+            className="glass rounded-2xl p-8 text-center min-w-[200px]"
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <motion.i 
+              className="fas fa-wifi text-5xl text-red-600 mb-4"
+              whileHover={{ scale: 1.2 }}
+              transition={{ duration: 0.3 }}
+            />
+            <p className="text-white font-bold text-2xl gymfont mb-2">FREE</p>
+            <p className="text-gray-400 text-lg">WI-FI</p>
+          </motion.div>
+        </motion.div>
       </div>
     </>
   );

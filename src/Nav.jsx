@@ -4,6 +4,15 @@ import { motion } from "framer-motion";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navVariants = {
     hidden: { 
@@ -14,7 +23,7 @@ export default function Nav() {
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeOut"
       }
     }
@@ -31,13 +40,14 @@ export default function Nav() {
       scale: 1,
       rotate: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.8,
         ease: "easeOut"
       }
     },
     hover: {
-      scale: 1.05,
+      scale: 1.1,
       rotate: 5,
+      filter: "drop-shadow(0 0 30px rgba(220, 38, 38, 0.8))",
       transition: {
         duration: 0.3,
         ease: "easeInOut"
@@ -49,7 +59,7 @@ export default function Nav() {
     rest: { scale: 1 },
     hover: { 
       scale: 1.1,
-      backgroundColor: "rgba(75, 85, 99, 0.8)",
+      backgroundColor: "rgba(220, 38, 38, 0.2)",
       transition: { duration: 0.2 }
     },
     tap: { 
@@ -58,12 +68,23 @@ export default function Nav() {
     }
   };
 
+  const linkVariants = {
+    rest: { scale: 1 },
+    hover: { 
+      scale: 1.1,
+      color: "#dc2626",
+      textShadow: "0 0 15px rgba(220, 38, 38, 0.8)",
+      transition: { duration: 0.2 }
+    }
+  };
+
   const cartIconVariants = {
     rest: { scale: 1, rotate: 0 },
     hover: { 
-      scale: 1.2,
-      rotate: 10,
-      color: "#3b82f6",
+      scale: 1.3,
+      rotate: 15,
+      color: "#dc2626",
+      filter: "drop-shadow(0 0 10px rgba(220, 38, 38, 0.8))",
       transition: { duration: 0.2 }
     }
   };
@@ -71,19 +92,27 @@ export default function Nav() {
   return (
     <>
       <motion.div 
-        className="fixed top-0 left-0 w-full z-50 bg-red-600 p-5"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled 
+            ? 'bg-black/95 backdrop-blur-xl shadow-2xl' 
+            : 'bg-black/80 backdrop-blur-md'
+        }`}
         initial="hidden"
         animate="visible"
         variants={navVariants}
+        style={{
+          borderBottom: scrolled ? '2px solid rgba(220, 38, 38, 0.6)' : '2px solid rgba(220, 38, 38, 0.3)'
+        }}
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white ">
-          
-          <div className="lg:ml-4 flex justify-between w-full ">
-            <Link to={"/"}>
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            
+            {/* Logo Section */}
+            <Link to={"/"} className="flex items-center">
               <motion.img 
                 src="/assets/bigLogo.png" 
-                alt="logo" 
-                className="w-28" 
+                alt="Eagle Gym Logo" 
+                className="h-16 lg:h-20 w-auto"
                 variants={logoVariants}
                 initial="hidden"
                 animate="visible"
@@ -91,84 +120,119 @@ export default function Nav() {
               />
             </Link>
 
-            <div className="flex items-center lg:hidden">
+            {/* Mobile Menu Button */}
+            <div className="flex items-center gap-4 lg:hidden">
+              <Link to={"/shop"}>
+                <motion.i 
+                  className="fa-solid fa-cart-shopping text-2xl text-white"
+                  variants={cartIconVariants}
+                  initial="rest"
+                  whileHover="hover"
+                />
+              </Link>
 
               <motion.button
-                className="text-white text-3xl"
+                className="text-white text-3xl p-2 rounded-lg"
                 onClick={() => setOpen(!open)}
                 variants={buttonVariants}
                 initial="rest"
                 whileHover="hover"
                 whileTap="tap"
               >
-                {open ? "✕" : "☰"}
+                {open ? (
+                  <motion.i 
+                    className="fas fa-times"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 90 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                ) : (
+                  <motion.i 
+                    className="fas fa-bars"
+                    initial={{ rotate: 90 }}
+                    animate={{ rotate: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
               </motion.button>
             </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-8">
+              <Link to="/">
+                <motion.span
+                  className="text-white font-bold text-lg gymfont relative group cursor-pointer"
+                  variants={linkVariants}
+                  initial="rest"
+                  whileHover="hover"
+                >
+                  HOME
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 group-hover:w-full transition-all duration-300"></span>
+                </motion.span>
+              </Link>
+
+              <Link to="/classes">
+                <motion.span
+                  className="text-white font-bold text-lg gymfont relative group cursor-pointer"
+                  variants={linkVariants}
+                  initial="rest"
+                  whileHover="hover"
+                >
+                  CLASSES
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 group-hover:w-full transition-all duration-300"></span>
+                </motion.span>
+              </Link>
+
+              <Link to={"/shop"}>
+                <motion.i 
+                  className="fa-solid fa-cart-shopping text-2xl text-white cursor-pointer"
+                  variants={cartIconVariants}
+                  initial="rest"
+                  whileHover="hover"
+                />
+              </Link>
+            </nav>
+
           </div>
 
-          {/* استخدام الكود الأصلي بدون تعديل للـ desktop */}
-          <div
-            className={`overflow-hidden transition-all duration-600 ease-in-out flex-col lg:flex lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
-              open
-                ? "max-h-96 opacity-100 mt-4"
-                : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100"
-            }`}
+          {/* Mobile Navigation Menu */}
+          <motion.div
+            initial={false}
+            animate={{
+              height: open ? "auto" : 0,
+              opacity: open ? 1 : 0
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden lg:hidden"
           >
-            <Link
-              to="/"
-              className="hover:text-red-600 px-2 py-2 m-1 hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+            <nav className="flex flex-col gap-2 py-4 mt-4 border-t border-red-600/30">
+              <Link
+                to="/"
+                onClick={() => setOpen(false)}
               >
-                Home
-              </motion.span>
-            </Link>
+                <motion.div
+                  className="text-white font-bold text-lg gymfont px-4 py-3 rounded-lg hover:bg-red-600/20 transition-all"
+                  whileHover={{ x: 10, backgroundColor: "rgba(220, 38, 38, 0.2)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  HOME
+                </motion.div>
+              </Link>
 
-            <Link
-              to="/classes"
-              className="hover:text-red-600 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+              <Link
+                to="/classes"
+                onClick={() => setOpen(false)}
               >
-                Classes
-              </motion.span>
-            </Link>
-
-            {/* <Link
-              to="/map"
-              className="hover:text-red-600 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                Map
-              </motion.span>
-            </Link> */}
-
-            <Link
-              to={"/shop"}
-              className="hidden lg:block ml-4"
-              onClick={() => setOpen(false)}
-            >
-              <motion.i 
-                className="fa-solid fa-cart-shopping text-2xl"
-                variants={cartIconVariants}
-                initial="rest"
-                whileHover="hover"
-              />
-            </Link>
-          </div>
+                <motion.div
+                  className="text-white font-bold text-lg gymfont px-4 py-3 rounded-lg hover:bg-red-600/20 transition-all"
+                  whileHover={{ x: 10, backgroundColor: "rgba(220, 38, 38, 0.2)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  CLASSES
+                </motion.div>
+              </Link>
+            </nav>
+          </motion.div>
         </div>
       </motion.div>
     </>
