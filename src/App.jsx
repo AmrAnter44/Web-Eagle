@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './comp/Home';
 import Layout from './Layout';
 import Coaches from './comp/Coaches';
+import Trans from './comp/Trans';
 import Classes from './comp/Classes';
 import Men from './comp/Map/Men';
 import Ladies from './comp/Map/Ladies';
@@ -28,6 +29,7 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "/coaches", element: <Coaches /> },
+        { path: "/transformations", element: <Trans /> },
         { path: "/classes", element: <Classes /> },
         { path: "/map", element: <Map /> },
         { path: "/Men", element: <Men /> },

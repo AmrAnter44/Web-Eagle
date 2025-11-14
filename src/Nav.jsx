@@ -78,17 +78,6 @@ export default function Nav() {
     }
   };
 
-  const cartIconVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover: { 
-      scale: 1.3,
-      rotate: 15,
-      color: "#dc2626",
-      filter: "drop-shadow(0 0 10px rgba(220, 38, 38, 0.8))",
-      transition: { duration: 0.2 }
-    }
-  };
-
   return (
     <>
       <motion.div 
@@ -120,17 +109,8 @@ export default function Nav() {
               />
             </Link>
 
-            {/* Mobile Menu Button
+            {/* Mobile Menu Button */}
             <div className="flex items-center gap-4 lg:hidden">
-              <Link to={"/shop"}>
-                <motion.i 
-                  className="fa-solid fa-cart-shopping text-2xl text-white"
-                  variants={cartIconVariants}
-                  initial="rest"
-                  whileHover="hover"
-                />
-              </Link>
-
               <motion.button
                 className="text-white text-3xl p-2 rounded-lg"
                 onClick={() => setOpen(!open)}
@@ -155,10 +135,10 @@ export default function Nav() {
                   />
                 )}
               </motion.button>
-            </div> */}
+            </div>
 
             {/* Desktop Navigation */}
-            {/* <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-8">
               <Link to="/">
                 <motion.span
                   className="text-white font-bold text-lg gymfont relative group cursor-pointer"
@@ -171,27 +151,30 @@ export default function Nav() {
                 </motion.span>
               </Link>
 
-              <Link to="/classes">
+              <Link to="/coaches">
                 <motion.span
                   className="text-white font-bold text-lg gymfont relative group cursor-pointer"
                   variants={linkVariants}
                   initial="rest"
                   whileHover="hover"
                 >
-                  CLASSES
+                  COACHES
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 group-hover:w-full transition-all duration-300"></span>
                 </motion.span>
               </Link>
 
-              <Link to={"/shop"}>
-                <motion.i 
-                  className="fa-solid fa-cart-shopping text-2xl text-white cursor-pointer"
-                  variants={cartIconVariants}
+              <Link to="/transformations">
+                <motion.span
+                  className="text-white font-bold text-lg gymfont relative group cursor-pointer"
+                  variants={linkVariants}
                   initial="rest"
                   whileHover="hover"
-                />
+                >
+                  TRANSFORMATIONS
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 group-hover:w-full transition-all duration-300"></span>
+                </motion.span>
               </Link>
-            </nav> */}
+            </nav>
 
           </div>
 
@@ -205,7 +188,7 @@ export default function Nav() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden lg:hidden"
           >
-            {/* <nav className="flex flex-col gap-2 py-4 mt-4 border-t border-red-600/30">
+            <nav className="flex flex-col gap-2 py-4 mt-4 border-t border-red-600/30">
               <Link
                 to="/"
                 onClick={() => setOpen(false)}
@@ -220,7 +203,7 @@ export default function Nav() {
               </Link>
 
               <Link
-                to="/classes"
+                to="/coaches"
                 onClick={() => setOpen(false)}
               >
                 <motion.div
@@ -228,10 +211,23 @@ export default function Nav() {
                   whileHover={{ x: 10, backgroundColor: "rgba(220, 38, 38, 0.2)" }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  CLASSES
+                  COACHES
                 </motion.div>
               </Link>
-            </nav> */}
+
+              <Link
+                to="/transformations"
+                onClick={() => setOpen(false)}
+              >
+                <motion.div
+                  className="text-white font-bold text-lg gymfont px-4 py-3 rounded-lg hover:bg-red-600/20 transition-all"
+                  whileHover={{ x: 10, backgroundColor: "rgba(220, 38, 38, 0.2)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  TRANSFORMATIONS
+                </motion.div>
+              </Link>
+            </nav>
           </motion.div>
         </div>
       </motion.div>

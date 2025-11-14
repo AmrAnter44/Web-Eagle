@@ -243,8 +243,8 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* ==================== Coaches Section ==================== */}
-        <Coaches />
+        {/* ==================== Coaches Section ====================
+        <Coaches /> */}
 
         {/* ==================== Features Section ==================== */}
         <motion.div 
