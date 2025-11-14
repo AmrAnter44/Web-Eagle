@@ -50,7 +50,7 @@ export default function PageWithVideo() {
 
         {/* Content above video */}
         <div className="relative z-20 w-full h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-              <p className=" text-3xl lg:text-6xl gymfont  font-bold text-red-600">
+              <p className=" text-3xl lg:text-6xl gymfont  font-bold text-white">
       {text}
       <span className="border-r-2 border-white ml-1 animate-pulse"></span>
     </p>

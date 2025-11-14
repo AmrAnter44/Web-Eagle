@@ -158,7 +158,7 @@ export default function Nav() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            {/* <nav className="hidden lg:flex items-center gap-8">
               <Link to="/">
                 <motion.span
                   className="text-white font-bold text-lg gymfont relative group cursor-pointer"
@@ -191,7 +191,7 @@ export default function Nav() {
                   whileHover="hover"
                 />
               </Link>
-            </nav>
+            </nav> */}
 
           </div>
 
@@ -205,7 +205,7 @@ export default function Nav() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden lg:hidden"
           >
-            <nav className="flex flex-col gap-2 py-4 mt-4 border-t border-red-600/30">
+            {/* <nav className="flex flex-col gap-2 py-4 mt-4 border-t border-red-600/30">
               <Link
                 to="/"
                 onClick={() => setOpen(false)}
@@ -231,7 +231,7 @@ export default function Nav() {
                   CLASSES
                 </motion.div>
               </Link>
-            </nav>
+            </nav> */}
           </motion.div>
         </div>
       </motion.div>
