@@ -12,7 +12,7 @@ export default function Footer() {
     {
       name: 'WhatsApp',
       icon: 'fa-brands fa-whatsapp',
-      url: 'https://wa.me/201122010294',
+      url: 'https://wa.me/201507817517',
       color: '#25D366'
     },
     {

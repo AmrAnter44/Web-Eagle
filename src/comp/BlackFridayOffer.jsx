@@ -34,7 +34,7 @@ export default function BlackFridayOffer() {
   }, []);
 
   const handleBook = () => {
-    const phone = "201028188900";  
+    const phone = "201507817517";  
     const message = "Hello, I would like to book the Black Friday offer: 3 months + 2 free months for 1800 EGP";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=700,height=700,top=100,left=200");
