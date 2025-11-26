@@ -133,14 +133,14 @@ export default function Footer() {
         <p className="text-white/70 text-sm">
           Powered by{" "}
           <motion.a 
-            href="https://tamyaz.online/" 
+            href="https://fitboost.website/" 
             className="text-red-600 font-bold hover:text-red-500 transition-colors"
             whileHover={{ 
               scale: 1.05,
               textShadow: "0 0 10px rgba(220, 38, 38, 0.8)"
             }}
           >
-            Tamyaz
+            FitBoost
           </motion.a>
           {" "}© {new Date().getFullYear()}
         </p>
