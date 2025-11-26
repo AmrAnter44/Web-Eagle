@@ -6,55 +6,55 @@ import { Link } from "react-router-dom";
 function Map() {
   const [hoveredArea, setHoveredArea] = useState(null);
 
-const areas = [
-  // LADIES ROOM (العمود الرفيع الشمال فوق)
-  { 
-    id: "Ladies", 
-    name: "Ladies Room", 
-    style: "top-0 left-0 w-[25%] h-[40%]", 
-    route: "/ladies" 
-  },
+// const areas = [
+//   // LADIES ROOM (العمود الرفيع الشمال فوق)
+//   { 
+//     id: "Ladies", 
+//     name: "Ladies Room", 
+//     style: "top-0 left-0 w-[25%] h-[40%]", 
+//     route: "/ladies" 
+//   },
 
-  // CARDIO AREA (اليسار تحت)
-  { 
-    id: "Cardio", 
-    name: "Cardio Area", 
-    style: "top-[40%] left-0 w-[25%] h-[60%]", 
-    route: "/cardio" 
-  },
+//   // CARDIO AREA (اليسار تحت)
+//   { 
+//     id: "Cardio", 
+//     name: "Cardio Area", 
+//     style: "top-[40%] left-0 w-[25%] h-[60%]", 
+//     route: "/cardio" 
+//   },
 
-  // MACHINES (المربع الكبير في النص)
-  { 
-    id: "Machines", 
-    name: "Machines", 
-    style: "top-0 left-[27%] w-[45%] h-[65%]", 
-    route: "/machines" 
-  },
+//   // MACHINES (المربع الكبير في النص)
+//   { 
+//     id: "Machines", 
+//     name: "Machines", 
+//     style: "top-0 left-[27%] w-[45%] h-[65%]", 
+//     route: "/machines" 
+//   },
 
-  // BAR (شريط صغير نص تحت)
-  { 
-    id: "Bar", 
-    name: "Bar", 
-    style: "top-[66%] left-[27%] w-[45%] h-[8%]", 
-    route: "/bar" 
-  },
+//   // BAR (شريط صغير نص تحت)
+//   { 
+//     id: "Bar", 
+//     name: "Bar", 
+//     style: "top-[66%] left-[27%] w-[45%] h-[8%]", 
+//     route: "/bar" 
+//   },
 
-  // MEN ROOM (تحت النص)
-  { 
-    id: "Men", 
-    name: "Men Room", 
-    style: "top-[75%] left-[26%] w-[45%] h-[25%]", 
-    route: "/men" 
-  },
+//   // MEN ROOM (تحت النص)
+//   { 
+//     id: "Men", 
+//     name: "Men Room", 
+//     style: "top-[75%] left-[26%] w-[45%] h-[25%]", 
+//     route: "/men" 
+//   },
 
-  // FREE WEIGHT (العمود الكبير يمين)
-  { 
-    id: "Free", 
-    name: "Free Weight", 
-    style: "top-0 right-0 w-[30%] h-full", 
-    route: "/free" 
-  }
-];
+//   // FREE WEIGHT (العمود الكبير يمين)
+//   { 
+//     id: "Free", 
+//     name: "Free Weight", 
+//     style: "top-0 right-0 w-[30%] h-full", 
+//     route: "/free" 
+//   }
+// ];
 
 
   const titleVariants = {
@@ -171,7 +171,7 @@ const areas = [
           whileHover="hover"
         />
 
-        {/* المناطق التفاعلية */}
+        {/* المناطق التفاعلية
         {areas.map((area, index) => (
           <motion.div
             key={area.id}
@@ -186,7 +186,7 @@ const areas = [
               to={area.route}
               className="w-full h-full block"
             >
-              {/* Overlay للتفاعل البصري */}
+             
               <motion.div
                 className="w-full h-full rounded-lg border-2 border-transparent"
 
@@ -194,7 +194,7 @@ const areas = [
               />
             </Link>
           </motion.div>
-        ))}
+        ))} */}
 
         {/* Tooltip عند الـ hover */}
         {hoveredArea && (
@@ -216,7 +216,7 @@ const areas = [
         )}
 
         {/* تأثير Pulse على المناطق */}
-        {areas.map((area, index) => (
+        {/* {areas.map((area, index) => (
           <motion.div
             key={`pulse-${area.id}`}
             className={`absolute ${area.style} z-5 pointer-events-none`}
@@ -234,9 +234,10 @@ const areas = [
           >
             <div className="w-full h-full bg-red-600 rounded-lg" />
           </motion.div>
-        ))}
+        ))}*/}
       </motion.div>
-    </motion.div>
+    </motion.div> 
+    
   );
 }
 
