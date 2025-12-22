@@ -33,6 +33,12 @@ const areas = [
 
   // BAR (شريط صغير نص تحت)
 
+  { 
+    id: "Bar", 
+    name: "Bar", 
+    style: "top-[68%] left-[27%] w-[45%] h-[8%]", 
+    route: "/bar" 
+  },
 
   // MEN ROOM (تحت النص)
   { 

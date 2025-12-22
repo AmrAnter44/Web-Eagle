@@ -12,7 +12,8 @@ import Cardio from './comp/Map/Cardio';
 import Weight from './comp/Map/Weight';
 import Free from './comp/Map/Free';
 import Machines from './comp/Map/Machines';
-import Map from './comp/Map';
+ import Map from './comp/Map';
+ import Bar from './comp/Map/Bar';
 import { Analytics } from "@vercel/analytics/react"
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         { path: "/Free", element: <Free /> },
         { path: "/Weight", element: <Weight /> },
         { path: "/Machines", element: <Machines /> },
+        { path: "/bar", element: <Bar /> },
 
         // ✅ شلنا Admin routes
       ],
