@@ -14,6 +14,7 @@ import Free from './comp/Map/Free';
 import Machines from './comp/Map/Machines';
  import Map from './comp/Map';
  import Bar from './comp/Map/Bar';
+ import Qooba from './comp/Qooba';
 import { Analytics } from "@vercel/analytics/react"
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         { path: "/Weight", element: <Weight /> },
         { path: "/Machines", element: <Machines /> },
         { path: "/bar", element: <Bar /> },
+        { path: "/Qooba", element: <Qooba /> },
 
         // ✅ شلنا Admin routes
       ],
