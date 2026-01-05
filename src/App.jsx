@@ -35,10 +35,13 @@ function App() {
         { path: "/Weight", element: <Weight /> },
         { path: "/Machines", element: <Machines /> },
         { path: "/bar", element: <Bar /> },
-        { path: "/qoopa", element: <Qooba /> },
 
         // ✅ شلنا Admin routes
       ],
+    },
+    {
+      path: "/qoopa",
+      element: <Qooba />,
     },
   ]);
 

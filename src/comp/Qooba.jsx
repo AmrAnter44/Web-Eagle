@@ -88,8 +88,8 @@ export default function Qooba() {
         </div>
 
         {/* معلومات إضافية */}
-        <div className="text-center mt-8 text-white">
-          <p className="text-lg">⏰ العرض لفترة محدودة - اغتنم الفرصة!</p>
+        <div className="text-center mt-8 text-white mb-32 pb-12">
+          <p className="text-lg mb-24">⏰ العرض لفترة محدودة - اغتنم الفرصة!</p>
         </div>
       </div>
     </div>
