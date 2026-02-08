@@ -93,49 +93,21 @@ export default function BlackFridayOffer() {
         <i className="fas fa-times text-white text-xs"></i>
       </button>
 
-      <div className="relative z-10 max-w-5xl mx-auto space-y-4">
-        
-        {/* Timer */}
-        <div className="flex justify-center gap-3">
-          {[
-            { label: 'Days', value: timeLeft.days },
-            { label: 'Hours', value: timeLeft.hours },
-            { label: 'Minutes', value: timeLeft.minutes },
-            { label: 'Seconds', value: timeLeft.seconds }
-          ].map((item, index) => (
-            <div key={index} className="bg-gradient-to-br from-red-900/60 to-black/60 backdrop-blur-sm border border-red-500/30 rounded-lg p-3 min-w-[70px] text-center">
-              <div className="text-2xl font-bold text-white gymfont">{String(item.value).padStart(2, '0')}</div>
-              <div className="text-[10px] text-red-400 font-semibold uppercase">{item.label}</div>
-            </div>
-          ))}
-        </div>
+      <div className="relative z-10 max-w-5xl mx-auto">
+        <div className="bg-gradient-to-r from-red-900/40 via-gray-900/50 to-black/60 backdrop-blur-sm border-2 border-red-500/30 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
-        <div className="bg-gradient-to-r from-red-900/40 via-gray-900/50 to-black/60 backdrop-blur-sm border-2 border-red-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          
           {/* Badge */}
           <div>
-            <span className="inline-block px-4 py-1 bg-gradient-to-r from-red-500 to-red-700 text-white text-sm font-bold rounded-full uppercase">
+            <span className="inline-block px-4 py-1 bg-gradient-to-r from-red-500 to-red-700 text-white text-sm font-bold rounded-full uppercase mb-4">
               {currentOffer.offer_type?.replace('_', ' ') || 'SPECIAL OFFER'}
             </span>
           </div>
 
-          {/* Offer */}
-          <div className="flex items-center gap-4">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-white gymfont">{months}</div>
-              <div className="text-xs text-red-400 font-semibold">Months</div>
-            </div>
-
-            {free > 0 && (
-              <>
-                <div className="text-3xl text-red-400 font-bold">+</div>
-
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-red-400 gymfont">{free}</div>
-                  <div className="text-xs text-white font-semibold">Free</div>
-                </div>
-              </>
-            )}
+          {/* Title */}
+          <div className="flex-1 text-center">
+            <h3 className="text-3xl md:text-4xl font-bold text-white gymfont">
+              {currentOffer.title_en}
+            </h3>
           </div>
 
           {/* Price */}

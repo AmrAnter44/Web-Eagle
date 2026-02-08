@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
 import { dataService } from '../data/dataService';
 import BlackFridayOffer from './BlackFridayOffer';
-import CompetitionSection from './CompetitionSection';
 import { useBranch } from '../context/BranchContext';
 
 export default function Home() {
@@ -51,7 +50,7 @@ export default function Home() {
 
 
         {/* ==================== Hero Text Section ==================== */}
-        <motion.div 
+        <motion.div
           className="text-center py-12 px-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,6 +67,10 @@ export default function Home() {
             <span className="uppercase tracking-widest">Conquer</span>
           </div>
         </motion.div>
+
+        {/* ==================== Special Offers (Black Friday) ==================== */}
+        <BlackFridayOffer />
+
 
         {/* ==================== Offers - Grid Layout ==================== */}
         <motion.div 
