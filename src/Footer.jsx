@@ -12,6 +12,13 @@ export default function Footer() {
     fostat: 'https://www.google.com/maps/place/eagle+gym+%D8%A7%D9%84%D9%81%D8%B3%D8%B7%D8%A7%D8%B7%E2%80%AD/data=!4m2!3m1!1s0x145847004519ae1f:0xd7eaec49d4769777?sa=X&ved=1t:242&ictx=111'
   };
 
+  // WhatsApp numbers for each branch
+  const whatsappNumbers = {
+    boolaq: '01148149679',
+    qoopa: '01100552674',
+    fostat: '01507817517'
+  };
+
   const socialLinks = [
     {
       name: 'Instagram',
@@ -24,6 +31,12 @@ export default function Footer() {
       icon: 'fa-brands fa-facebook',
       url: 'https://www.facebook.com/profile.php?id=61554637528211',
       color: '#1877F2'
+    },
+    {
+      name: 'WhatsApp',
+      icon: 'fa-brands fa-whatsapp',
+      url: `https://wa.me/2${whatsappNumbers[selectedBranch] || whatsappNumbers.fostat}`,
+      color: '#25D366'
     },
     {
       name: 'Location',

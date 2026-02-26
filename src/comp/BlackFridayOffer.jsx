@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { dataService } from '../data/dataService';
 import { supabase } from '../lib/supabase';
+import { useBranch } from '../context/BranchContext';
 
 export default function BlackFridayOffer() {
+  const { selectedBranch } = useBranch();
   const [offers, setOffers] = useState([]);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -51,8 +53,16 @@ export default function BlackFridayOffer() {
     return () => clearInterval(timer);
   }, []);
 
+  // WhatsApp numbers for each branch
+  const whatsappNumbers = {
+    boolaq: '01148149679',
+    qoopa: '01100552674',
+    fostat: '01507817517'
+  };
+
   const handleBook = (offer) => {
-    const phone = "201028188900";
+    const phoneNumber = whatsappNumbers[selectedBranch] || whatsappNumbers.fostat;
+    const phone = `2${phoneNumber}`; // Adding Egypt country code
     const price = offer.price || offer.metadata?.price || 'N/A';
     const message = `Hello, I would like to book: ${offer.name} for ${price} EGP`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;

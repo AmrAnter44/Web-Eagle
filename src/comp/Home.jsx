@@ -30,6 +30,20 @@ export default function Home() {
     return 'fa-check';
   }
 
+  // WhatsApp numbers for each branch
+  const whatsappNumbers = {
+    boolaq: '01148149679',
+    qoopa: '01100552674',
+    fostat: '01507817517'
+  };
+
+  // Video files for each branch
+  const branchVideos = {
+    boolaq: '/Bolaq.mp4',
+    qoopa: '/qooba.mp4',
+    fostat: '/fostat.mp4'
+  };
+
   // Load data when component mounts or branch changes
   useEffect(() => {
     loadData();
@@ -41,6 +55,16 @@ export default function Home() {
 
     const ptPackagesResult = await dataService.getPtPackages();
     if (ptPackagesResult.data) setPtPackages(ptPackagesResult.data);
+  };
+
+  // Handle membership booking via WhatsApp
+  const handleMembershipBook = (offer) => {
+    const phoneNumber = whatsappNumbers[selectedBranch] || whatsappNumbers.fostat;
+    const phone = `2${phoneNumber}`; // Adding Egypt country code
+    const price = offer.price_new && offer.price_new !== "0" ? offer.price_new : offer.price;
+    const message = `Hello, I would like to book: ${offer.duration} membership for ${price} EGP`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   };
 
   const containerVariants = {
@@ -66,25 +90,42 @@ export default function Home() {
 
       <div className="min-h-screen bg-black">
 
+        {/* ==================== Hero Section with Video Background ==================== */}
+        <div className="relative w-full h-screen overflow-hidden">
+          {/* Video Background */}
+          <video
+            key={selectedBranch} // Force re-render when branch changes
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={branchVideos[selectedBranch] || branchVideos.fostat} type="video/mp4" />
+          </video>
 
-        {/* ==================== Hero Text Section ==================== */}
-        <motion.div
-          className="text-center py-12 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-5xl md:text-7xl font-black text-white gymfont mb-4">
-            EAGLE <span className="text-red-600">GYM</span>
-          </h1>
-          <div className="flex items-center justify-center gap-4 text-white/80 text-sm md:text-base">
-            <span className="uppercase tracking-widest">Transform</span>
-            <div className="w-2 h-2 bg-red-600 rotate-45"></div>
-            <span className="uppercase tracking-widest">Dominate</span>
-            <div className="w-2 h-2 bg-red-600 rotate-45"></div>
-            <span className="uppercase tracking-widest">Conquer</span>
-          </div>
-        </motion.div>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          {/* Hero Text */}
+          <motion.div
+            className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-5xl md:text-7xl font-black text-white gymfont mb-4 drop-shadow-2xl">
+              EAGLE <span className="text-red-600">GYM</span>
+            </h1>
+            <div className="flex items-center justify-center gap-4 text-white/80 text-sm md:text-base drop-shadow-lg">
+              <span className="uppercase tracking-widest">Transform</span>
+              <div className="w-2 h-2 bg-red-600 rotate-45"></div>
+              <span className="uppercase tracking-widest">Dominate</span>
+              <div className="w-2 h-2 bg-red-600 rotate-45"></div>
+              <span className="uppercase tracking-widest">Conquer</span>
+            </div>
+          </motion.div>
+        </div>
 
         {/* ==================== Special Offers (Black Friday) ==================== */}
         <BlackFridayOffer />
@@ -186,6 +227,15 @@ export default function Home() {
                             </div>
                           )}
                         </div>
+
+                        {/* Book Now Button */}
+                        <button
+                          onClick={() => handleMembershipBook(offer)}
+                          className="w-full py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-400 transition-all duration-300 font-bold transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                        >
+                          <i className="fa-brands fa-whatsapp text-xl"></i>
+                          <span>Book Now</span>
+                        </button>
                       </div>
                     </div>
                     
