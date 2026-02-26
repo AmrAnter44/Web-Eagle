@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
-import Nav2 from '../Nav2';
+import Nav from '../Nav';
 import { dataService } from '../data/dataService';
 import BlackFridayOffer from './BlackFridayOffer';
 import { useBranch } from '../context/BranchContext';
@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <>
-      <Nav2 />
+      <Nav />
 
       <div className="min-h-screen bg-black">
 
