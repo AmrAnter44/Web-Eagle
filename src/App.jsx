@@ -17,8 +17,12 @@ import Bar from './comp/Map/Bar';
 import BranchHome from './comp/BranchHome';
 import BranchPage from './comp/BranchPage';
 import { Analytics } from "@vercel/analytics/react"
+import { useWebsiteTracking } from './hooks/useWebsiteTracking';
 
 function App() {
+  // Track homepage visits
+  useWebsiteTracking();
+
   let router = createBrowserRouter([
     // ==================== الصفحة الرئيسية - اختيار الفرع ====================
     {
