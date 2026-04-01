@@ -32,6 +32,26 @@ export default function BranchHome() {
       gradient: 'from-zinc-700 via-zinc-800 to-zinc-900',
       description_en: 'Where champions are made',
       description_ar: 'حيث يُصنع الأبطال'
+    },
+    {
+      slug: 'saft',
+      name_en: 'Saft',
+      name_ar: 'صفط',
+      route: '/saft',
+      icon: 'fa-location-dot',
+      gradient: 'from-amber-700 via-amber-800 to-amber-900',
+      description_en: 'Unleash your power',
+      description_ar: 'أطلق قوتك'
+    },
+    {
+      slug: 'ba4tel',
+      name_en: 'Bashteel',
+      name_ar: 'بشتيل',
+      route: '/ba4tel',
+      icon: 'fa-location-dot',
+      gradient: 'from-emerald-700 via-emerald-800 to-emerald-900',
+      description_en: 'Rise above limits',
+      description_ar: 'تخطى حدودك'
     }
   ];
 

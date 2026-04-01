@@ -34,14 +34,18 @@ export default function Home() {
   const whatsappNumbers = {
     boolaq: '01148149679',
     qoopa: '01100552674',
-    fostat: '01507817517'
+    fostat: '01507817517',
+    saft: '01514137830',
+    ba4tel: '01118887321'
   };
 
   // Video files for each branch
   const branchVideos = {
     boolaq: '/Bolaq.mp4',
     qoopa: '/qooba.mp4',
-    fostat: '/fostat.mp4'
+    fostat: '/fostat.mp4',
+    saft: '/fostat.mp4',
+    ba4tel: '/fostat.mp4'
   };
 
   // Load data when component mounts or branch changes

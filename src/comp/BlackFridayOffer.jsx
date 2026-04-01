@@ -57,7 +57,9 @@ export default function BlackFridayOffer() {
   const whatsappNumbers = {
     boolaq: '01148149679',
     qoopa: '01100552674',
-    fostat: '01507817517'
+    fostat: '01507817517',
+    saft: '01514137830',
+    ba4tel: '01118887321'
   };
 
   const handleBook = (offer) => {

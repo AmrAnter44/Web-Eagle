@@ -9,14 +9,18 @@ export default function Footer() {
   const locationUrls = {
     boolaq: 'https://maps.app.goo.gl/aPxRWXb3iY4j8SMd8',
     qoopa: 'https://maps.app.goo.gl/vpAfmd612sXXUVwe9',
-    fostat: 'https://www.google.com/maps/place/eagle+gym+%D8%A7%D9%84%D9%81%D8%B3%D8%B7%D8%A7%D8%B7%E2%80%AD/data=!4m2!3m1!1s0x145847004519ae1f:0xd7eaec49d4769777?sa=X&ved=1t:242&ictx=111'
+    fostat: 'https://www.google.com/maps/place/eagle+gym+%D8%A7%D9%84%D9%81%D8%B3%D8%B7%D8%A7%D8%B7%E2%80%AD/data=!4m2!3m1!1s0x145847004519ae1f:0xd7eaec49d4769777?sa=X&ved=1t:242&ictx=111',
+    saft: 'https://maps.app.goo.gl/akT7uFigtVfcsBdF8',
+    ba4tel: 'https://google.com/maps?q=30.085573,31.190752'
   };
 
   // WhatsApp numbers for each branch
   const whatsappNumbers = {
     boolaq: '01148149679',
     qoopa: '01100552674',
-    fostat: '01507817517'
+    fostat: '01507817517',
+    saft: '01514137830',
+    ba4tel: '01118887321'
   };
 
   const socialLinks = [
