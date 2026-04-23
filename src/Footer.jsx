@@ -90,8 +90,52 @@ export default function Footer() {
         variants={containerVariants}
       >
         <div className="container mx-auto px-4 py-8">
+          {/* App Download Section */}
+          <motion.div
+            className="flex flex-col items-center gap-4 mb-8 pb-8 border-b border-red-600/30"
+            variants={itemVariants}
+          >
+            <h3 className="text-white gymfont text-xl md:text-2xl font-bold tracking-wider text-center">
+              GET OUR GYM APP
+            </h3>
+            <p className="text-white/70 text-sm md:text-base text-center">
+              Available on Android and iPhone
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <motion.a
+                href="https://play.google.com/store/apps/details?id=com.fitboost.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 hover:border-green-500 rounded-xl px-5 py-3 transition-all"
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(34, 197, 94, 0.5)' }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <i className="fa-brands fa-google-play text-3xl text-green-500"></i>
+                <div className="flex flex-col items-start">
+                  <span className="text-white/60 text-[10px] uppercase tracking-wide">Get it on</span>
+                  <span className="text-white font-bold text-sm">Google Play</span>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="https://apps.apple.com/eg/app/fit-boost/id6760668273"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 hover:border-blue-400 rounded-xl px-5 py-3 transition-all"
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(96, 165, 250, 0.5)' }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <i className="fa-brands fa-apple text-3xl text-blue-400"></i>
+                <div className="flex flex-col items-start">
+                  <span className="text-white/60 text-[10px] uppercase tracking-wide">Download on the</span>
+                  <span className="text-white font-bold text-sm">App Store</span>
+                </div>
+              </motion.a>
+            </div>
+          </motion.div>
+
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            
+
             {/* Social Links */}
             <motion.div 
               className="flex gap-4"
