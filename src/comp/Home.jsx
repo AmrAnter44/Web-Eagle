@@ -44,8 +44,8 @@ export default function Home() {
     boolaq: '/Bolaq.mp4',
     qoopa: '/qooba.mp4',
     fostat: '/fostat.mp4',
-    saft: '/fostat.mp4',
-    ba4tel: '/fostat.mp4'
+    saft: '/saft.mp4',
+    ba4tel: '/b4tel.mp4'
   };
 
   // Load data when component mounts or branch changes

@@ -18,6 +18,7 @@ import BranchHome from './comp/BranchHome';
 import BranchPage from './comp/BranchPage';
 import { Analytics } from "@vercel/analytics/react"
 import { useWebsiteTracking } from './hooks/useWebsiteTracking';
+import LeadForm from './components/LeadForm';
 
 function App() {
   // Track homepage visits
@@ -54,6 +55,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <LeadForm />
       <Analytics />
     </>
   );
