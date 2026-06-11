@@ -19,7 +19,7 @@ export default function Footer() {
     boolaq: '01148149679',
     qoopa: '01100552674',
     fostat: '01507817517',
-    saft: '01514137830',
+    saft: '01104878973',
     ba4tel: '01118887321'
   };
 
