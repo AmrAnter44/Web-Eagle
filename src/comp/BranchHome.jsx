@@ -52,6 +52,26 @@ export default function BranchHome() {
       gradient: 'from-emerald-700 via-emerald-800 to-emerald-900',
       description_en: 'Rise above limits',
       description_ar: 'تخطى حدودك'
+    },
+    {
+      slug: 'ainshams',
+      name_en: 'Ain Shams',
+      name_ar: 'عين شمس',
+      route: '/ainshams',
+      icon: 'fa-location-dot',
+      gradient: 'from-blue-700 via-blue-800 to-blue-900',
+      description_en: 'Train with purpose',
+      description_ar: 'تدرب بهدف'
+    },
+    {
+      slug: 'zayed',
+      name_en: 'Sheikh Zayed',
+      name_ar: 'الشيخ زايد',
+      route: '/zayed',
+      icon: 'fa-location-dot',
+      gradient: 'from-indigo-700 via-indigo-800 to-indigo-900',
+      description_en: 'Strength without limits',
+      description_ar: 'قوة بلا حدود'
     }
   ];
 

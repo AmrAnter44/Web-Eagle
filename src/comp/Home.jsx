@@ -36,7 +36,10 @@ export default function Home() {
     qoopa: '01100552674',
     fostat: '01507817517',
     saft: '01514137830',
-    ba4tel: '01118887321'
+    ba4tel: '01118887321',
+    ainshams: '01131198999',
+    // TODO: add the real WhatsApp number for this branch
+    zayed: null
   };
 
   // Video files for each branch
@@ -45,7 +48,10 @@ export default function Home() {
     qoopa: '/qooba.mp4',
     fostat: '/fostat.mp4',
     saft: '/saft.mp4',
-    ba4tel: '/b4tel.mp4'
+    ba4tel: '/b4tel.mp4',
+    // TODO: drop the hero videos in public/ and point these at them
+    ainshams: null,
+    zayed: null
   };
 
   // Load data when component mounts or branch changes

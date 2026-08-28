@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { dataService } from '../data/dataService';
+import { applyBranchNameOverrides } from '../data/branchNames';
 
 const BranchContext = createContext();
 
@@ -63,7 +64,7 @@ export const BranchProvider = ({ children }) => {
       console.error('Error loading branches:', error);
       setError(error);
     } else {
-      setBranches(data || []);
+      setBranches(applyBranchNameOverrides(data || []));
       // Set first branch as default if none selected
       if (data && data.length > 0 && !selectedBranch) {
         setSelectedBranch(data[0].slug);

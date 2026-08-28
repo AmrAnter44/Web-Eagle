@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { applyBranchNameOverrides } from '../data/branchNames';
 
 const SCROLL_THRESHOLD = 0.5;
 const FALLBACK_TIMER_MS = 8000; // لو الصفحة قصيرة وما فيش سكرول، نعرض الفورم بعد 8 ثواني
@@ -61,7 +62,7 @@ export default function LeadForm() {
           console.warn('list_gym_branches error:', error);
           return;
         }
-        setBranches(data || []);
+        setBranches(applyBranchNameOverrides(data || []));
       });
   }, [open, branches.length]);
 

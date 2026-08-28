@@ -14,7 +14,7 @@ export default function BranchPage() {
     console.log('Branch slug from URL:', branchSlug); // للتأكد من الـ slug
 
     // التأكد من أن الفرع موجود
-    const validBranches = ['boolaq', 'qoopa', 'fostat', 'saft', 'ba4tel'];
+    const validBranches = ['boolaq', 'qoopa', 'fostat', 'saft', 'ba4tel', 'ainshams', 'zayed'];
 
     if (!validBranches.includes(branchSlug)) {
       console.log('Invalid branch slug, redirecting to home'); // تتبع المشكلة

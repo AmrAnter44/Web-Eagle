@@ -11,7 +11,10 @@ export default function Footer() {
     qoopa: 'https://maps.app.goo.gl/vpAfmd612sXXUVwe9',
     fostat: 'https://www.google.com/maps/place/eagle+gym+%D8%A7%D9%84%D9%81%D8%B3%D8%B7%D8%A7%D8%B7%E2%80%AD/data=!4m2!3m1!1s0x145847004519ae1f:0xd7eaec49d4769777?sa=X&ved=1t:242&ictx=111',
     saft: 'https://maps.app.goo.gl/akT7uFigtVfcsBdF8',
-    ba4tel: 'https://google.com/maps?q=30.085573,31.190752'
+    ba4tel: 'https://google.com/maps?q=30.085573,31.190752',
+    // TODO: add the real Google Maps links for these branches
+    ainshams: null,
+    zayed: null
   };
 
   // WhatsApp numbers for each branch
@@ -20,7 +23,10 @@ export default function Footer() {
     qoopa: '01100552674',
     fostat: '01507817517',
     saft: '01514137830',
-    ba4tel: '01118887321'
+    ba4tel: '01118887321',
+    ainshams: '01131198999',
+    // TODO: add the real WhatsApp number for this branch
+    zayed: null
   };
 
   const socialLinks = [

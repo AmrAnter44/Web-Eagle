@@ -59,7 +59,10 @@ export default function BlackFridayOffer() {
     qoopa: '01100552674',
     fostat: '01507817517',
     saft: '01514137830',
-    ba4tel: '01118887321'
+    ba4tel: '01118887321',
+    ainshams: '01131198999',
+    // TODO: add the real WhatsApp number for this branch
+    zayed: null
   };
 
   const handleBook = (offer) => {
